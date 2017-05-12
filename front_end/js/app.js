@@ -35,6 +35,9 @@ angular
 	.controller("FreekendIndexController", [
 		FreekendIndexControllerFunction
 	])
+	.controller("FreekendShowController", [
+		FreekendShowControllerFunction
+	])
 
 	function RouterFunction($stateProvider) {
 		$stateProvider
@@ -42,6 +45,12 @@ angular
 			url: "/",
 			templateUrl: "js/ng-views/index.html",
 			controller: "FreekendIndexController",
+			controllerAs: "vm"
+		})
+		.state("eventShow", {
+			url: "/event",
+			templateUrl: "js/ng-views/show.html",
+			controller: "FreekendShowController",
 			controllerAs: "vm"
 		})
 	}
@@ -52,6 +61,10 @@ angular
 
 	function FreekendIndexControllerFunction() {
 		this.event_list = events
+	}
+
+	function FreekendShowControllerFunction() {
+		this.event_single = events[0]
 	}
 
 })();
