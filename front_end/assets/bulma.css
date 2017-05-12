@@ -142,7 +142,7 @@ pre {
 }
 
 body {
-  background-color: whitesmoke;
+  background-color: #ffd700;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -673,8 +673,8 @@ a.has-text-danger:hover, a.has-text-danger:focus {
   padding: 1.25rem;
 }
 
-.comment {
-  background-color: red;
+.commentbox {
+  background-color: #fa8072;
   border-radius: 5px;
   box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
   display: block;
@@ -1692,7 +1692,9 @@ input[type="submit"].button {
 }
 
 .comment_content {
-  background-color: #efe88e;
+  margin-bottom: 12px;
+  color: white;
+  background-color: #fa8072;
 }
 
 .content:not(:last-child) {
