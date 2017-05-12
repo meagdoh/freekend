@@ -1,24 +1,9 @@
 "use strict";
 
 (function(){
-
-	let events = [{
-		name: "Party at my Place",
-		time: "7:30pm",
-		city: "Washington",
-		state: "DC",
-		zip_code: 20006,
-		address: "2343 Connecticut Street",
-		photo_url: "http://i.imgur.com/TbjJwFj.jpg"
-	}, {
-		name: "Tycho Show",
-		time: "9:30pm",
-		city: "Washington",
-		state: "DC",
-		zip_code: 20006,
-		address: "6364 West Street",
-		photo_url: "http://i.imgur.com/MkLTfuc.jpg"
-	}]
+	let eventUrl = ""
+	let zip =0
+	let eventsList = ""
 
 angular
 	.module("freekend", [
@@ -36,8 +21,13 @@ angular
 		"$resource",
     LocationFactoryFunction
   ])
+  .factory( "EventFactory", [
+		"$resource",
+    EventFactoryFunction
+  ])
 	.controller("FreekendIndexController", [
 		"LocationFactory",
+		"EventFactory",
 		FreekendIndexControllerFunction
 	])
 	.controller("FreekendShowController", [
@@ -67,9 +57,14 @@ angular
   }
 
 
-	function FreekendIndexControllerFunction( LocationFactory ) {
-		this.location = LocationFactory.get()
-		console.log(this.location)
+	function FreekendIndexControllerFunction( LocationFactory, EventFactory ) {
+		LocationFactory.get().$promise.then( function( response ) {
+			zip = response.zip
+			EventFactory.get().$promise.then( function( data ) {
+				eventsList = data.events.event
+				console.log(eventsList)
+			})
+		})
 	}
 
 	function FreekendShowControllerFunction() {
@@ -77,7 +72,11 @@ angular
 	}
 
 	function LocationFactoryFunction( $resource ){
-    return $resource( "http://ip-api.com/json" )
+		return $resource( "http://ip-api.com/json")
+  }
+
+  function EventFactoryFunction( $resource ){
+    return $resource( "http://api.eventful.com/json/events/search?location=20009&date=Today&app_key=N6hhj9BZcLjg2KmX" )
   }
 
 })();
