@@ -25,14 +25,19 @@ angular
 		"ui.router",
 		"ngResource"
 	])
-	.controller("freekendController", [
+	.controller("FreekendController", [
 		FreekendControllerFunction
 	])
 	.config([
 		"$stateProvider",
 		RouterFunction
 	])
+	.factory( "LocationFactory", [
+		"$resource",
+    LocationFactoryFunction
+  ])
 	.controller("FreekendIndexController", [
+		"LocationFactory",
 		FreekendIndexControllerFunction
 	])
 	.controller("FreekendShowController", [
@@ -55,16 +60,24 @@ angular
 		})
 	}
 
-	function FreekendControllerFunction() {
-		this.event_list = events
-	}
 
-	function FreekendIndexControllerFunction() {
-		this.event_list = events
+
+  function FreekendControllerFunction() {
+
+  }
+
+
+	function FreekendIndexControllerFunction( LocationFactory ) {
+		this.location = LocationFactory.get()
+		console.log(this.location)
 	}
 
 	function FreekendShowControllerFunction() {
 		this.event_single = events[0]
 	}
+
+	function LocationFactoryFunction( $resource ){
+    return $resource( "http://ip-api.com/json" )
+  }
 
 })();
