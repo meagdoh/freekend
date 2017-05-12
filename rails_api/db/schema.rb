@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170512133825) do
+ActiveRecord::Schema.define(version: 20170512204444) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,13 @@ ActiveRecord::Schema.define(version: 20170512133825) do
     t.string "author"
     t.string "content"
     t.integer "event_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.bigint "comment_id_id"
+    t.bigint "favorite_id_id"
+    t.index ["comment_id_id"], name: "index_events_on_comment_id_id"
+    t.index ["favorite_id_id"], name: "index_events_on_favorite_id_id"
   end
 
   create_table "favorites", force: :cascade do |t|
