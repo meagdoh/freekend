@@ -1,0 +1,24 @@
+html {
+	background-color: : whitesmoke;
+}
+
+body {
+	font-family: 'Montserrat', sans-serif;
+	background-color: : whitesmoke;
+}
+
+h1, h2, h3, h4, h5, h5 {
+	font-family: 'Arvo', serif;
+}
+
+.hero {
+	background-color: #16ff96;
+}
+
+.container {
+
+}
+
+.hero .title, .hero .subtitle {
+	color: whitesmoke;
+}
