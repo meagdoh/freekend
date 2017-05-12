@@ -1692,7 +1692,7 @@ input[type="submit"].button {
 }
 
 .comment_content {
-  background-color: red;
+  background-color: #efe88e;
 }
 
 .content:not(:last-child) {
