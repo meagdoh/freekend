@@ -58,11 +58,13 @@ angular
 
 
 	function FreekendIndexControllerFunction( LocationFactory, EventFactory ) {
+		let self = this
+		this.zip
+		this.events
 		LocationFactory.get().$promise.then( function( response ) {
-			zip = response.zip
+			self.zip = response.zip
 			EventFactory.get().$promise.then( function( data ) {
-				eventsList = data.events.event
-				console.log(eventsList)
+				self.events = data.events.event
 			})
 		})
 	}
