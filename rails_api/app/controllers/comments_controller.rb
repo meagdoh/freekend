@@ -2,27 +2,27 @@ class CommentsController < ApplicationController
 
     def index
       @comments = Comment.all
-      render json: @coments
+      render json: @comments
     end
 
     def show
-      @comment = comment.find(params[:id])
+      @comment = Comment.find(params[:id])
       render json: @comment
     end
 
     def create
-      @comment = comment.create!(comment_params)
+      @comment = Comment.create!(comment_params)
       render json: @comment
     end
 
     def update
-      @comment = comment.find(params[:id])
+      @comment = Comment.find(params[:id])
       @comment.update!(comment_params)
       render json: @comment
     end
 
     def destroy
-      @comment = comment.find(params[:id])
+      @comment = Comment.find(params[:id])
       @comment.destroy
       render nothing:true
     end
