@@ -1695,6 +1695,7 @@ input[type="submit"].button {
   margin-bottom: 12px;
   color: white;
   background-color: #fa8072;
+  border-bottom: white, thin;
 }
 
 .content:not(:last-child) {
