@@ -11,6 +11,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.2/angular-resource.min.js"></script>
 	<script src="js/app.js"></script>
+	<base href="/" />
 </head>
 <body>
 
@@ -22,12 +23,26 @@
       </h1>
       <h2 class="subtitle">
         What's going on?
+        <!-- Random catchphrase idea -->
+        <!-- <script type="text/javascript">
+          var catch = [
+            "What's in your weekend?",
+            "start the madness",
+            "make your 'lit' more literal",
+            "What's going on?"
+          ];
+          function randomCatchphrase(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+          }
+          for(var x=0; x<20; x++)
+          return(randomCatchphrase(catch));
+        </script> -->
       </h2>
     </div>
   </div>
 </section>
 
-<div class="container" ng-controller="freekendController as vm">
+<div class="container">
 
 	<br>
 	<div class="box">
@@ -44,45 +59,7 @@
 		</div>
 	</div>
 
-	<br>
-	<div ng-repeat="event in vm.event_list">
-		
-		<div class="box" >
-			<div class="columns">
-			  <div class="column is-half">
-			  	<div class="media-left">
-			      <figure class="image">
-			        <img ng-src="{{event.photo_url}}" alt="Image">
-			      </figure>
-			    </div>
-			  </div>
-			  <div class="column">
-			  	<div class="media-content">
-			      <div class="content">
-			      	<p class="title is-3"><strong>{{ event.name }}</strong></p>
-			      	<p class="title is-3"><small>{{ event.time }}</small></p>
-			      	<p>
-			      		<strong>{{ event.address }}</strong><br>
-			      		<strong>{{ event.city }}, {{ event.address }} {{ event.zip }}</strong>
-			      	</p>
-			        <p>
-			          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.
-			        </p>
-
-			      </div>
-			      <nav class="level is-mobile">
-			        <div class="level-left">
-			          <a class="level-item">
-			            <span class="icon is-medium"><i class="fa fa-heart"></i></span>
-			          </a>
-			        </div>
-			      </nav>
-			    </div>
-			  </div>
-			</div>
-		</div>
-		<br>
-	</div>
+	<div ui-view></div>
 
 
 </div>

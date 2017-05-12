@@ -28,8 +28,29 @@ angular
 	.controller("freekendController", [
 		FreekendControllerFunction
 	])
+	.config([
+		"$stateProvider",
+		RouterFunction
+	])
+	.controller("FreekendIndexController", [
+		FreekendIndexControllerFunction
+	])
+
+	function RouterFunction($stateProvider) {
+		$stateProvider
+		.state("eventsIndex", {
+			url: "/",
+			templateUrl: "js/ng-views/index.html",
+			controller: "FreekendIndexController",
+			controllerAs: "vm"
+		})
+	}
 
 	function FreekendControllerFunction() {
+		this.event_list = events
+	}
+
+	function FreekendIndexControllerFunction() {
 		this.event_list = events
 	}
 
