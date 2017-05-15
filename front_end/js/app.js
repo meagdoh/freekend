@@ -59,11 +59,11 @@ angular
 
 	function FreekendIndexControllerFunction( LocationFactory, EventFactory ) {
 		let self = this
-		this.zip
 		this.events
 		LocationFactory.get().$promise.then( function( response ) {
 			self.zip = response.zip
-			EventFactory.get().$promise.then( function( data ) {
+			console.log(self.zip)
+			EventFactory.get({zip: response.zip}).$promise.then( function( data ) {
 				self.events = data.events.event
 			})
 		})
@@ -78,7 +78,7 @@ angular
   }
 
   function EventFactoryFunction( $resource ){
-    return $resource( "http://api.eventful.com/json/events/search?location=20009&date=Today&app_key=N6hhj9BZcLjg2KmX" )
+    return $resource( "http://api.eventful.com/json/events/search?location=:zip&date=Today&app_key=N6hhj9BZcLjg2KmX")
   }
 
 })();
