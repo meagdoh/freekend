@@ -4,6 +4,7 @@
 	let eventUrl = ""
 	let zip =0
 	let eventsList = ""
+	let singleEvent = ""
 
 angular
 	.module("freekend", [
@@ -43,7 +44,7 @@ angular
 			controllerAs: "vm"
 		})
 		.state("eventShow", {
-			url: "/event",
+			url: "/event/:id",
 			templateUrl: "js/ng-views/show.html",
 			controller: "FreekendShowController",
 			controllerAs: "vm"
@@ -67,10 +68,19 @@ angular
 				self.events = data.events.event
 			})
 		})
+
+		this.setSingleEvent = function( place ) {
+			singleEvent = place
+			console.log(singleEvent)
+			console.log("click")
+		}
+
 	}
 
+
+
 	function FreekendShowControllerFunction() {
-		this.event_single = events[0]
+		this.event = singleEvent
 	}
 
 	function LocationFactoryFunction( $resource ){
