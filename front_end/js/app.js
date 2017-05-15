@@ -43,6 +43,11 @@
             "CommentFactory",
             FreekendShowControllerFunction
         ])
+        .controller("FreekendCommentNewController",[
+          "$stateParams",
+          "CommentFactory",
+          FreekendCommentNewControllerFunction
+      ])
 
     function RouterFunction($stateProvider) {
         $stateProvider
@@ -57,6 +62,12 @@
                 templateUrl: "js/ng-views/show.html",
                 controller: "FreekendShowController",
                 controllerAs: "vm"
+            })
+            .state("commentNew", {
+              url: "/event/:id/comment/new",
+              templateUrl:  "js/ng-views/comments/new.html",
+              controller: "FreekendCommentNewController",
+              controllerAs: "vm"
             })
     }
 
@@ -102,6 +113,16 @@
         })
     }
 
+    function FreekendCommentNewControllerFunction($stateParams, CommentFactory){
+      //  this.comment = new CommentFactory()
+      console.log($stateParams.id)
+      this.event = $stateParams.id
+      this.create = function (){
+        this.comment.$save()
+      }
+    }
+
+
     function LocationFactoryFunction($resource) {
         return $resource("http://ip-api.com/json")
     }
@@ -113,5 +134,7 @@
     function CommentFactoryFunction ($resource) {
         return $resource("http://localhost:3000/comments")
     }
+
+
 
 })();
