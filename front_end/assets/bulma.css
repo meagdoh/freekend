@@ -106,7 +106,7 @@ th {
 }
 
 html {
-  background-color: #fff;
+  background-color: whitesmoke;
   font-size: 16px;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -142,7 +142,7 @@ pre {
 }
 
 body {
-  background-color: #ffd700;
+  color: #363636;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -667,14 +667,6 @@ a.has-text-danger:hover, a.has-text-danger:focus {
 
 .box {
   background-color: white;
-  border-radius: 5px;
-  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
-  display: block;
-  padding: 1.25rem;
-}
-
-.commentbox {
-  background-color: #fa8072;
   border-radius: 5px;
   box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
   display: block;
@@ -1689,13 +1681,6 @@ input[type="submit"].button {
 
 .content {
   color: #4a4a4a;
-}
-
-.comment_content {
-  margin-bottom: 12px;
-  color: white;
-  background-color: #fa8072;
-  border-bottom: white, thin;
 }
 
 .content:not(:last-child) {
