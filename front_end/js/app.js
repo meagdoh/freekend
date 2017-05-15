@@ -9,7 +9,8 @@
     angular
         .module("freekend", [
             "ui.router",
-            "ngResource"
+            "ngResource",
+            'ngSanitize'
         ])
         .controller("FreekendController", [
             FreekendControllerFunction
@@ -52,16 +53,13 @@
             })
     }
 
-
-
     function FreekendControllerFunction() {
-
     }
-
 
     function FreekendIndexControllerFunction(LocationFactory, EventFactory) {
         let self = this
         this.events
+        this.event_description
         LocationFactory.get().$promise.then(function(response) {
             self.zip = response.zip
             console.log(self.zip)
@@ -78,10 +76,7 @@
             console.log(singleEvent)
             console.log("click")
         }
-
     }
-
-
 
     function FreekendShowControllerFunction($stateParams) {
        this.events = eventsList
@@ -94,7 +89,7 @@
     }
 
     function EventFactoryFunction($resource) {
-        return $resource("http://api.eventful.com/json/events/search?location=:zip&date=Today&app_key=N6hhj9BZcLjg2KmX")
+        return $resource("http://api.eventful.com/json/events/search?!sort=rec&location=:zip&date=Today&app_key=N6hhj9BZcLjg2KmX")
     }
 
 })();

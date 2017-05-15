@@ -19,8 +19,7 @@
 			      		<strong>{{ event.venue_address }}</strong><br>
 			      		<strong>{{ event.city_name }}, {{ event.region_abbr }} {{ event.postal_code }}</strong>
 			      	</p>
-			        <p>
-			          {{ event.description }}
+			        <p ng-bind-html="event.description">
 			        </p>
 
 			      </div>
