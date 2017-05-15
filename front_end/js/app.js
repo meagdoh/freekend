@@ -27,6 +27,10 @@
             "$resource",
             EventFactoryFunction
         ])
+        .factory("CommentFactory", [
+          "$resource",
+          CommentFactoryFunction
+        ])
         .controller("FreekendIndexController", [
             "LocationFactory",
             "EventFactory",
@@ -36,6 +40,7 @@
             "$stateParams",
             "LocationFactory",
             "EventFactory",
+            "CommentFactory",
             FreekendShowControllerFunction
         ])
 
@@ -80,23 +85,24 @@
         }
     }
 
-    function FreekendShowControllerFunction($stateParams, LocationFactory, EventFactory) {
+    function FreekendShowControllerFunction($stateParams, LocationFactory, EventFactory, CommentFactory) {
        let self = this
        this.eventId = $stateParams.id
        if (eventsList === !undefined) {
        	self.events = eventList
        	console.log(this.eventId)
        }
-       
-       
+
+
        if(this.events === undefined) {
             LocationFactory.get().$promise.then(function(response) {
-                EventFactory.get({
-                    zip: response.zip
-                }).$promise.then(function(data) {
+                EventFactory.get({zip: response.zip}).$promise.then(function(data) {
                     self.events = data.events.event
                     eventsList = data.events.event
                     console.log(self.events)
+                    CommentFactory.query().$promise.then(function(data2){
+                      console.log(data2)
+                    })
                 })
             })
        } else {
@@ -110,6 +116,10 @@
 
     function EventFactoryFunction($resource) {
         return $resource("http://api.eventful.com/json/events/search?!sort=rec&location=:zip&date=Today&app_key=N6hhj9BZcLjg2KmX")
+    }
+
+    function CommentFactoryFunction ($resource) {
+        return $resource("http://localhost:3000/comments")
     }
 
 })();
