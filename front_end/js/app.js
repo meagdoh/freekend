@@ -88,26 +88,18 @@
     function FreekendShowControllerFunction($stateParams, LocationFactory, EventFactory, CommentFactory) {
        let self = this
        this.eventId = $stateParams.id
-       if (eventsList === !undefined) {
-       	self.events = eventList
-       	console.log(this.eventId)
-       }
 
 
-       if(this.events === undefined) {
-            LocationFactory.get().$promise.then(function(response) {
-                EventFactory.get({zip: response.zip}).$promise.then(function(data) {
-                    self.events = data.events.event
-                    eventsList = data.events.event
-                    console.log(self.events)
-                    CommentFactory.query().$promise.then(function(data2){
-                      console.log(data2)
-                    })
+        LocationFactory.get().$promise.then(function(response) {
+            EventFactory.get({zip: response.zip}).$promise.then(function(data) {
+                self.events = data.events.event
+                eventsList = data.events.event
+                console.log(self.events)
+                CommentFactory.query().$promise.then(function(data2){
+                   self.comments = data2
                 })
             })
-       } else {
-       		self.events = eventsList
-       }
+        })
     }
 
     function LocationFactoryFunction($resource) {
