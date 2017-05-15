@@ -9,3 +9,5 @@
   city1 = City.create([{ name: 'Beverley Hills' }, { zip: '90210' }, { long: '0' },{ lat: '0' }])
   category1 = Category.create([{ name_cat: 'Concert' }])
   comment1 = Comment.create([{author: 'Stormy', content: 'This concert is going to be ah-maze-ing' , event_id: 1}])
+  comment2 = Comment.create([{author: 'Jon', content: 'This concert is going to be horrible' , event_id: 1}])
+  comment3 = Comment.create([{author: 'Omar', content: 'This concert is going to be meh' , event_id: 2}])
