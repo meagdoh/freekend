@@ -1,4 +1,4 @@
-class FavoritesController < ApplicationController
+class FavoriteController < ApplicationController
 
     def index
       @favorite = Favorite.all
