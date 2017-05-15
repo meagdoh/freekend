@@ -32,6 +32,7 @@ angular
 		FreekendIndexControllerFunction
 	])
 	.controller("FreekendShowController", [
+		"$stateParams",
 		FreekendShowControllerFunction
 	])
 
@@ -79,8 +80,9 @@ angular
 
 
 
-	function FreekendShowControllerFunction() {
+	function FreekendShowControllerFunction($stateParams) {
 		this.event = singleEvent
+		this.eventId = $stateParams.id
 	}
 
 	function LocationFactoryFunction( $resource ){
