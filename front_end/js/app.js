@@ -34,6 +34,8 @@
         ])
         .controller("FreekendShowController", [
             "$stateParams",
+            "LocationFactory",
+            "EventFactory",
             FreekendShowControllerFunction
         ])
 
@@ -78,10 +80,28 @@
         }
     }
 
-    function FreekendShowControllerFunction($stateParams) {
-       this.events = eventsList
+    function FreekendShowControllerFunction($stateParams, LocationFactory, EventFactory) {
+       let self = this
        this.eventId = $stateParams.id
-       console.log(this.eventId)
+       if (eventsList === !undefined) {
+       	self.events = eventList
+       	console.log(this.eventId)
+       }
+       
+       
+       if(this.events === undefined) {
+            LocationFactory.get().$promise.then(function(response) {
+                EventFactory.get({
+                    zip: response.zip
+                }).$promise.then(function(data) {
+                    self.events = data.events.event
+                    eventsList = data.events.event
+                    console.log(self.events)
+                })
+            })
+       } else {
+       		self.events = eventsList
+       }
     }
 
     function LocationFactoryFunction($resource) {
