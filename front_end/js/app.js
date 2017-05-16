@@ -114,9 +114,9 @@
     }
 
     function FreekendCommentNewControllerFunction($stateParams, CommentFactory){
-      //  this.comment = new CommentFactory()
+      this.comment = new CommentFactory()
       console.log($stateParams.id)
-      this.event = $stateParams.id
+      this.comment.event_id = $stateParams.id
       this.create = function (){
         this.comment.$save()
       }
