@@ -31,10 +31,26 @@
           "$resource",
           CommentFactoryFunction
         ])
+        // .factory("FavoriteFactory", [
+        //     "$resources",
+        //     FavoriteFactoryFunction
+        // ])
         .controller("FreekendIndexController", [
             "LocationFactory",
             "EventFactory",
             FreekendIndexControllerFunction
+        ])
+        .controller("FreekendCommentNewController",[
+          "$stateParams",
+          "CommentFactory",
+          "$state",
+          FreekendCommentNewControllerFunction
+        ])
+        .controller("FreekendCommentEditController",[
+          "$stateParams",
+          "CommentFactory",
+          "$state",
+          FreekendCommentEditControllerFunction
         ])
         .controller("FreekendShowController", [
             "$stateParams",
@@ -43,11 +59,7 @@
             "CommentFactory",
             FreekendShowControllerFunction
         ])
-        .controller("FreekendCommentNewController",[
-          "$stateParams",
-          "CommentFactory",
-          FreekendCommentNewControllerFunction
-      ])
+        
 
     function RouterFunction($stateProvider) {
         $stateProvider
@@ -67,6 +79,12 @@
               url: "/event/:id/comment/new",
               templateUrl:  "js/ng-views/comments/new.html",
               controller: "FreekendCommentNewController",
+              controllerAs: "vm"
+            })
+            .state("commentEdit", {
+              url: "/event/:id/comments/:comment_id",
+              templateUrl:  "js/ng-views/comments/edit.html",
+              controller: "FreekendCommentEditController",
               controllerAs: "vm"
             })
     }
@@ -97,28 +115,45 @@
     }
 
     function FreekendShowControllerFunction($stateParams, LocationFactory, EventFactory, CommentFactory) {
-       let self = this
-       this.eventId = $stateParams.id
+      let self = this
+      this.eventId = $stateParams.id
+      this.comment 
 
-
-        LocationFactory.get().$promise.then(function(response) {
-            EventFactory.get({zip: response.zip}).$promise.then(function(data) {
-                self.events = data.events.event
-                eventsList = data.events.event
-                console.log(self.events)
-                CommentFactory.query().$promise.then(function(data2){
-                   self.comments = data2
-                })
-            })
-        })
+      LocationFactory.get().$promise.then(function(response) {
+          EventFactory.get({zip: response.zip}).$promise.then(function(data) {
+              self.events = data.events.event
+              eventsList = data.events.event
+              CommentFactory.query().$promise.then(function(data2){
+                 self.comments = data2
+              })
+          })
+      })
     }
 
-    function FreekendCommentNewControllerFunction($stateParams, CommentFactory){
-      //  this.comment = new CommentFactory()
-      console.log($stateParams.id)
-      this.event = $stateParams.id
+    function FreekendCommentNewControllerFunction($stateParams, CommentFactory, $state){
+      let self = this
+      this.comment = new CommentFactory()
+      this.eventId = $stateParams.id
+      this.comment.event_id = $stateParams.id
       this.create = function (){
         this.comment.$save()
+        $state.go('eventShow', {id: self.eventId})
+      }
+    }
+
+    function FreekendCommentEditControllerFunction($stateParams, CommentFactory, $state){
+      let self = this
+      this.comment = CommentFactory.get({id: $stateParams.comment_id})
+      this.eventId = $stateParams.id
+      this.update = function(){
+        console.log()
+        this.comment.$update({id: this.comment.id}, function(){
+          $state.go('eventShow', {id: self.eventId}).success
+        })
+      }
+      this.destroy = function(){
+        this.comment.$delete({id: this.comment.id})
+        $state.go('eventShow', {id: self.eventId})
       }
     }
 
@@ -132,8 +167,14 @@
     }
 
     function CommentFactoryFunction ($resource) {
-        return $resource("http://localhost:3000/comments")
+        return $resource("http://localhost:3000/comments/:id", {}, {
+          update: { method: "PUT"}
+        });
     }
+
+    // function FavoriteFactoryFunction ($resource) {
+    //     return $resource("http://localhost:3000/favorites/:id")
+    // }
 
 
 

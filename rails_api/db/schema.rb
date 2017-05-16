@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20170512204444) do
   create_table "comments", force: :cascade do |t|
     t.string "author"
     t.string "content"
-    t.integer "event_id"
+    t.string "event_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20170512204444) do
   end
 
   create_table "favorites", force: :cascade do |t|
-    t.integer "event_id"
+    t.string "event_id"
   end
 
 end
