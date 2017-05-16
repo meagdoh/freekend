@@ -1,5 +1,6 @@
 <br>
 <!-- event card below -->
+
 <div ng-repeat="event in vm.events | filter: {id: vm.eventId}">
 
     <div class="box" >
@@ -44,7 +45,7 @@
       </div>
     </div>
     <br>
-  </div>
+
 <div class="box">
   <div class="columns">
     <div class="column is-1"></div>
@@ -58,6 +59,9 @@
               <br>
               {{comment.content}}
             </p>
+            <a class="level-item">
+              <a ui-sref="commentEdit({id: event.id, comment_id: comment.id})" class="button is-info">Edit</a>
+            </a>
           </div>
         </div>
       </article>
@@ -66,6 +70,7 @@
     <div class="column"></div>
 
   </div>
+    </div>
 
 </div>
 </div>
