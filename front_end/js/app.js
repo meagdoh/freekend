@@ -31,10 +31,19 @@
           "$resource",
           CommentFactoryFunction
         ])
+        // .factory("FavoriteFactory", [
+        //     "$resources",
+        //     FavoriteFactoryFunction
+        // ])
         .controller("FreekendIndexController", [
             "LocationFactory",
             "EventFactory",
             FreekendIndexControllerFunction
+        ])
+        .controller("FreekendCommentNewController",[
+          "$stateParams",
+          "CommentFactory",
+          FreekendCommentNewControllerFunction
         ])
         .controller("FreekendShowController", [
             "$stateParams",
@@ -43,11 +52,7 @@
             "CommentFactory",
             FreekendShowControllerFunction
         ])
-        .controller("FreekendCommentNewController",[
-          "$stateParams",
-          "CommentFactory",
-          FreekendCommentNewControllerFunction
-      ])
+        
 
     function RouterFunction($stateProvider) {
         $stateProvider
@@ -105,7 +110,6 @@
             EventFactory.get({zip: response.zip}).$promise.then(function(data) {
                 self.events = data.events.event
                 eventsList = data.events.event
-                console.log(self.events)
                 CommentFactory.query().$promise.then(function(data2){
                    self.comments = data2
                 })
@@ -115,7 +119,6 @@
 
     function FreekendCommentNewControllerFunction($stateParams, CommentFactory){
       this.comment = new CommentFactory()
-      console.log($stateParams.id)
       this.comment.event_id = $stateParams.id
       this.create = function (){
         this.comment.$save()
@@ -132,8 +135,12 @@
     }
 
     function CommentFactoryFunction ($resource) {
-        return $resource("http://localhost:3000/comments")
+        return $resource("http://localhost:3000/comments/:id")
     }
+
+    // function FavoriteFactoryFunction ($resource) {
+    //     return $resource("http://localhost:3000/favorites/:id")
+    // }
 
 
 

@@ -1,18 +1,24 @@
 class FavoritesController < ApplicationController
 
     def index
-      @favorite = Favorite.all
+      @favorites = Favorite.all
       render json: @favorites
     end
 
     def create
-      @favorite = favorite.create!(favorite_params)
+      @favorite = Favorite.create!(favorite_params)
       render json: @favorite
+    end
+
+    def destroy
+      @favorite = Favorite.find(params[:id])
+      @favorite.destroy
+      render nothing:true
     end
 
     private
     def favorite_params
-      params.require(:comment).permit(:event_id)
+      params.require(:favorite).permit(:event_id)
     end
 
 end
