@@ -31,10 +31,10 @@
           "$resource",
           CommentFactoryFunction
         ])
-        // .factory("FavoriteFactory", [
-        //     "$resources",
-        //     FavoriteFactoryFunction
-        // ])
+        .factory("CityFactory", [
+          "$resource",
+          CityFactoryFunction
+        ])
         .controller("FreekendIndexController", [
             "LocationFactory",
             "EventFactory",
@@ -59,7 +59,10 @@
             "CommentFactory",
             FreekendShowControllerFunction
         ])
-        
+        .controller("FreekendCityIndexController", [
+            "$stateParams",
+            FreekendCityIndexControllerFunction
+        ])
 
     function RouterFunction($stateProvider) {
         $stateProvider
@@ -87,15 +90,35 @@
               controller: "FreekendCommentEditController",
               controllerAs: "vm"
             })
+
+            .state("cityShow", {
+              url: "/city/:city_name",
+              templateUrl:  "js/ng-views/city/index.html",
+              controller: "FreekendCityIndexController",
+              controllerAs: "vm"
+            })
     }
 
     function FreekendControllerFunction() {
+    }
+
+    function FreekendCityIndexControllerFunction($stateParams, CityFactory) {
+      // TODO: ui-sref/stateParams does not update immediately. 
+      this.getCityInfo = function() {
+        console.log($stateParams.city_name)
+        // CityFactory.get({
+        //   name: $stateParams.city_name
+        // }).$promise.then(function(data) {
+        //   console.log(data)
+        // })
+      }
     }
 
     function FreekendIndexControllerFunction(LocationFactory, EventFactory) {
         let self = this
         this.events
         this.event_description
+
         LocationFactory.get().$promise.then(function(response) {
             self.zip = response.zip
             console.log(self.zip)
@@ -118,6 +141,19 @@
       let self = this
       this.eventId = $stateParams.id
       this.comment 
+
+      // this.favorite = null
+
+      // this.createFavorite = function(){
+      //   console.log("shit")
+      //   // self.favorite = new FavoriteFactory()
+      //   self.favorite.event_id = self.eventId
+      //   self.favorite.$save()
+      // }
+
+      // this.deleteFavorite(){
+
+      // }
 
       LocationFactory.get().$promise.then(function(response) {
           EventFactory.get({zip: response.zip}).$promise.then(function(data) {
@@ -172,9 +208,16 @@
         });
     }
 
-    // function FavoriteFactoryFunction ($resource) {
-    //     return $resource("http://localhost:3000/favorites/:id")
-    // }
+    function FavoriteFactoryFunction ($resource) {
+        return $resource("http://localhost:3000/favorites/:id")
+    }
+    function CityDatabaseFactoryFunction($resource) {
+      return $resource("http://localhost:3000/favorites/:id")
+    }
+
+    function CityFactoryFunction ($resource) {
+      return $resource("http://api.eventful.com/json/events/search?!sort=rec&city_name=:city_name&date=Today&app_key=N6hhj9BZcLjg2KmX")
+    }
 
 
 

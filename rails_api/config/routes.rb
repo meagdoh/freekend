@@ -3,5 +3,6 @@ Rails.application.routes.draw do
 
   resources :comments
   resources :favorites
+  resources :cities
 
 end
