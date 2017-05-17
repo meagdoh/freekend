@@ -103,8 +103,15 @@
     }
 
     function FreekendCityIndexControllerFunction($stateParams, CityFactory) {
-
-
+      // TODO: ui-sref/stateParams does not update immediately. 
+      this.getCityInfo = function() {
+        console.log($stateParams.city_name)
+        // CityFactory.get({
+        //   name: $stateParams.city_name
+        // }).$promise.then(function(data) {
+        //   console.log(data)
+        // })
+      }
     }
 
     function FreekendIndexControllerFunction(LocationFactory, EventFactory) {
@@ -203,6 +210,9 @@
 
     function FavoriteFactoryFunction ($resource) {
         return $resource("http://localhost:3000/favorites/:id")
+    }
+    function CityDatabaseFactoryFunction($resource) {
+      return $resource("http://localhost:3000/favorites/:id")
     }
 
     function CityFactoryFunction ($resource) {

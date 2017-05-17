@@ -22,8 +22,7 @@ ActiveRecord::Schema.define(version: 20170512204444) do
   create_table "cities", force: :cascade do |t|
     t.string "name"
     t.integer "zip"
-    t.string "long"
-    t.string "lat"
+    t.string "query_name"
   end
 
   create_table "comments", force: :cascade do |t|
