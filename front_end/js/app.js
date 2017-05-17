@@ -61,6 +61,7 @@
         ])
         .controller("FreekendCityIndexController", [
             "$stateParams",
+            "CityFactory",
             FreekendCityIndexControllerFunction
         ])
 
@@ -102,16 +103,21 @@
     function FreekendControllerFunction() {
     }
 
+
     function FreekendCityIndexControllerFunction($stateParams, CityFactory) {
-      // TODO: ui-sref/stateParams does not update immediately. 
-      this.getCityInfo = function() {
-        console.log($stateParams.city_name)
-        // CityFactory.get({
-        //   name: $stateParams.city_name
-        // }).$promise.then(function(data) {
-        //   console.log(data)
-        // })
-      }
+      // TODO: ui-sref/stateParams does not update immediately.
+      let self = this
+      this.city_name = $stateParams.city_name
+      this.events
+      console.log(this.city_name);
+        CityFactory.get({
+          city_name: self.city_name
+        }).$promise.then(function(data) {
+          console.log(data.events.event)
+          self.events = data.events.event
+
+        })
+
     }
 
     function FreekendIndexControllerFunction(LocationFactory, EventFactory) {
@@ -140,7 +146,7 @@
     function FreekendShowControllerFunction($stateParams, LocationFactory, EventFactory, CommentFactory) {
       let self = this
       this.eventId = $stateParams.id
-      this.comment 
+      this.comment
 
       // this.favorite = null
 
@@ -215,8 +221,9 @@
       return $resource("http://localhost:3000/favorites/:id")
     }
 
+
     function CityFactoryFunction ($resource) {
-      return $resource("http://api.eventful.com/json/events/search?!sort=rec&city_name=:city_name&date=Today&app_key=N6hhj9BZcLjg2KmX")
+      return $resource("http://api.eventful.com/json/events/search?!sort=rec&l=:city_name&date=Today&app_key=N6hhj9BZcLjg2KmX")
     }
 
 
