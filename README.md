@@ -19,13 +19,12 @@ user’s geolocation. The user’s location (zip code) is determined automatical
 
 * Events
   * "comment_id_id"
-  * "index_events_on_favorite_id_id"
-  * "favorite_id_id"
   * "index_events_on_comment_id_id"
 
 The user should be able to:
   * Have their IP address automatically retrieve events within or nearby their zip code.
-  * Comment and Favorite on the nearby events for the user's personal reference
+  * Comment on the nearby events for the user's personal reference
+  * Sort through events via major cities
 
 Freekend uses Eventful API to gather event data on current opportunities, focusing on immediate opportunities users can go out to an event within their immediate location.
 

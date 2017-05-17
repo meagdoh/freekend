@@ -3,14 +3,42 @@
 		<div class="column is-3">
 		</div>
 		<div class="column is-6">
-			<div class="block">
-				<a ui-sref="cityShow({city_name: 'blah1'})" class="button is-info">Los Angeles</a>
-				<a ui-sref="cityShow({city_name: 'blah2'})" class="button is-info">New York City</a>
-				<a ui-sref="cityShow({city_name: 'blah3'})" class="button is-info">Chicago</a>
-				
+			<div class="block has-text-centered">
+				<span ng-repeat="button in vm.cityButtons"><a class="button is-info"  ui-sref="cityShow({city_name: button.query_name})" ng-click="vm.getCityInfo()" >{{button.name}}</a> </span>
 			</div>
 		</div>
 		<div class="column">
 		</div>
 	</div>
+</div>
+
+<br>
+
+<div ng-repeat="event in vm.events">
+	<div class="box">
+		<div class="columns">
+			<div ng-hide="event.image.medium.url == null" class="column is-half">
+				<div class="media-left">
+					<figure class="image">
+						<img ng-src="{{event.image.medium.url}}" alt="Image">
+					</figure>
+				</div>
+			</div>
+			<div class="column">
+				<div class="media-content">
+					<div class="content">
+						<p class="title is-3"><a href="" ng-click="vm.setSingleEvent(event)" ui-sref="eventShow({id: event.id})"><strong>{{ event.title }}</strong></a></p>
+						<p class="title is-3"><small>{{ event.start_time }}</small></p>
+						<p>
+							<strong>{{ event.venue_address }}</strong><br>
+							<strong>{{ event.city_name }}, {{ event.region_abbr }} {{ event.postal_code }}</strong>
+						</p>
+						<p ng-bind-html="event.description">
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
 </div>
