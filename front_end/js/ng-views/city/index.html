@@ -4,9 +4,7 @@
 		</div>
 		<div class="column is-6">
 			<div class="block has-text-centered">
-				<a ui-sref="cityShow({city_name: 'Boston'})" ng-click="vm.getCityInfo()" class="button is-info">Boston</a>
-				<a ui-sref="cityShow({city_name: 'Chicago'})" ng-click="vm.getCityInfo()" class="button is-info">Chicago</a>
-				<a ui-sref="cityShow({city_name: 'Washington'})" ng-click="vm.getCityInfo()" class="button is-info">Washington</a>
+				<span ng-repeat="button in vm.cityButtons"><a class="button is-info"  ui-sref="cityShow({city_name: button.query_name})" ng-click="vm.getCityInfo()" >{{button.name}}</a> </span>
 			</div>
 		</div>
 		<div class="column">
@@ -38,13 +36,6 @@
 						<p ng-bind-html="event.description">
 						</p>
 					</div>
-<!-- 					<nav class="level is-mobile">
-						<div class="level-left">
-							<a class="level-item">
-								<span class="icon is-medium"><i class="fa fa-heart"></i></span>
-							</a>
-						</div>
-					</nav> -->
 				</div>
 			</div>
 		</div>

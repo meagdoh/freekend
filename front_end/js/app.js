@@ -35,6 +35,10 @@
           "$resource",
           CityFactoryFunction
         ])
+        .factory("CityDatabaseFactory", [
+          "$resource",
+          CityDatabaseFactoryFunction
+        ])
         .controller("FreekendIndexController", [
             "LocationFactory",
             "EventFactory",
@@ -62,6 +66,7 @@
         .controller("FreekendCityIndexController", [
             "$stateParams",
             "CityFactory",
+            "CityDatabaseFactory",
             FreekendCityIndexControllerFunction
         ])
 
@@ -104,19 +109,21 @@
     }
 
 
-    function FreekendCityIndexControllerFunction($stateParams, CityFactory) {
+    function FreekendCityIndexControllerFunction($stateParams, CityFactory, CityDatabaseFactory) {
       // TODO: ui-sref/stateParams does not update immediately.
       let self = this
       this.city_name = $stateParams.city_name
       this.events
-      console.log(this.city_name);
+      
+      CityDatabaseFactory.query().$promise.then(function(data) {
+        self.cityButtons = data
+        console.log(self.cityButtons)
         CityFactory.get({
           city_name: self.city_name
-        }).$promise.then(function(data) {
-          console.log(data.events.event)
-          self.events = data.events.event
-
+        }).$promise.then(function(response) {
+          self.events = response.events.event
         })
+      })
 
     }
 
@@ -147,19 +154,6 @@
       let self = this
       this.eventId = $stateParams.id
       this.comment
-
-      // this.favorite = null
-
-      // this.createFavorite = function(){
-      //   console.log("shit")
-      //   // self.favorite = new FavoriteFactory()
-      //   self.favorite.event_id = self.eventId
-      //   self.favorite.$save()
-      // }
-
-      // this.deleteFavorite(){
-
-      // }
 
       LocationFactory.get().$promise.then(function(response) {
           EventFactory.get({zip: response.zip}).$promise.then(function(data) {
@@ -218,7 +212,7 @@
         return $resource("http://localhost:3000/favorites/:id")
     }
     function CityDatabaseFactoryFunction($resource) {
-      return $resource("http://localhost:3000/favorites/:id")
+      return $resource("http://localhost:3000/cities")
     }
 
 

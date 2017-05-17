@@ -11,10 +11,9 @@ Category.destroy_all
 Comment.destroy_all
 Favorite.destroy_all
 
-city1 = City.create([{ name: 'Beverley Hills',  zip: '90210'}])
 city2 = City.create([{ name: 'Boston', query_name: "boston"}])
 city3 = City.create([{ name: 'Chicago', query_name: "chicago"}])
-city4 = City.create([{ name: 'Washington', query_name: "washington" }])
+city4 = City.create([{ name: 'Seattle', query_name: "seattle" }])
 category1 = Category.create([{ name_cat: 'Concert' }])
 comment1 = Comment.create([{author: 'Stormy', content: 'This concert is going to be ah-maze-ing' , event_id: "1"}])
 comment2 = Comment.create([{author: 'Jon', content: 'This concert is going to be horrible' , event_id: "1"}])
